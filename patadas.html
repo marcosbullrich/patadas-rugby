@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Patadas a los palos — Rugby</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#ffffff;--bg2:#f5f4f0;--bg3:#eeedea;--text:#1a1a1a;--text2:#666660;--text3:#999993;--border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.22);--border3:rgba(0,0,0,0.06);--radius:8px;--radius-lg:12px;}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1c1a;--bg2:#252523;--bg3:#2e2e2b;--text:#f0ede8;--text2:#9e9b94;--text3:#6b6864;--border:rgba(255,255,255,0.12);--border2:rgba(255,255,255,0.22);--border3:rgba(255,255,255,0.06);}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg2);color:var(--text);min-height:100vh;padding:1.5rem 1rem;}
+.app{max-width:860px;margin:0 auto;}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px;}
+.header h1{font-size:20px;font-weight:600;color:var(--text);}
+.user-row select{font-size:13px;padding:5px 8px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);}
+.tabs{display:flex;gap:3px;margin-bottom:1.25rem;background:var(--bg3);border-radius:var(--radius);padding:3px;}
+.tab{flex:1;text-align:center;padding:7px 4px;border-radius:6px;border:none;font-size:13px;background:transparent;color:var(--text2);cursor:pointer;}
+.tab.active{background:var(--bg);color:var(--text);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
+.section-label{font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:500;}
+.type-toggle{display:flex;gap:6px;margin-bottom:1rem;}
+.type-btn{padding:6px 14px;border-radius:var(--radius);border:0.5px solid var(--border);font-size:13px;background:var(--bg);color:var(--text2);cursor:pointer;}
+.type-btn.active{border-color:var(--border2);color:var(--text);font-weight:500;background:var(--bg3);}
+.field-wrap{margin-bottom:1rem;border-radius:var(--radius-lg);overflow:hidden;border:0.5px solid var(--border3);cursor:crosshair;}
+.field-wrap svg{display:block;width:100%;}
+.pending-banner{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:var(--radius);background:var(--bg3);border:0.5px solid var(--border);font-size:13px;color:var(--text2);margin-bottom:10px;}
+.result-btns{display:flex;gap:8px;margin-bottom:1rem;}
+.result-btn{flex:1;padding:12px;border-radius:var(--radius-lg);border:0.5px solid var(--border);font-size:14px;font-weight:500;cursor:pointer;background:var(--bg);color:var(--text);}
+.result-btn.good{border-color:#1D9E75;color:#0F6E56;background:#E1F5EE;}
+.result-btn.miss{border-color:#D85A30;color:#993C1D;background:#FAECE7;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;}
+.stat-card{background:var(--bg3);border-radius:var(--radius);padding:10px 12px;}
+.stat-label{font-size:11px;color:var(--text2);margin-bottom:3px;}
+.stat-value{font-size:20px;font-weight:500;color:var(--text);}
+.stat-sub{font-size:11px;color:var(--text3);}
+.divider{border:none;border-top:0.5px solid var(--border3);margin:1rem 0;}
+.partido-selector{display:flex;gap:6px;align-items:center;margin-bottom:1rem;flex-wrap:wrap;}
+.partido-selector select{flex:1;font-size:13px;padding:6px 8px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);min-width:120px;}
+.partido-selector button{font-size:13px;padding:6px 10px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;}
+.partido-selector button:hover{background:var(--bg3);}
+.np-form{border:0.5px solid var(--border3);border-radius:var(--radius-lg);padding:14px;background:var(--bg);margin-bottom:1rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.form-row input,.form-row select{font-size:13px;padding:7px 10px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg3);color:var(--text);width:100%;}
+.form-row input::placeholder{color:var(--text3);}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--border2);}
+.form-actions{display:flex;gap:6px;justify-content:flex-end;}
+.btn-sm{font-size:13px;padding:6px 14px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);cursor:pointer;}
+.btn-sm:hover{background:var(--bg3);}
+.btn-sm.primary{background:var(--text);color:var(--bg);border-color:var(--text);}
+.partido-card{border:0.5px solid var(--border3);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:8px;background:var(--bg);}
+.partido-card.activo{border-color:var(--border2);}
+.partido-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;}
+.partido-card-title{font-size:14px;font-weight:500;color:var(--text);}
+.partido-card-sub{font-size:12px;color:var(--text2);}
+.partido-pct{font-size:18px;font-weight:500;}
+.pct-g{color:#0F6E56;}.pct-m{color:#BA7517;}.pct-b{color:#993C1D;}
+.partido-detail{font-size:12px;color:var(--text3);margin-top:4px;}
+.badge-eq{font-size:11px;padding:2px 7px;border-radius:4px;background:#FBEAF0;color:#72243E;}
+@media(prefers-color-scheme:dark){.badge-eq{background:#72243E;color:#F4C0D1;}}
+.zone-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:1rem;}
+.zone-card{background:var(--bg3);border-radius:var(--radius);padding:9px 10px;text-align:center;}
+.zone-name{font-size:11px;color:var(--text3);margin-bottom:3px;}
+.zone-pct{font-size:16px;font-weight:500;color:var(--text);}
+.zone-count{font-size:11px;color:var(--text3);}
+.history-list{border:0.5px solid var(--border3);border-radius:var(--radius-lg);overflow:hidden;}
+.hrow{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:0.5px solid var(--border3);font-size:13px;}
+.hrow:last-child{border-bottom:none;}
+.hrow:hover{background:var(--bg3);}
+.hnum{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;}
+.hnum-g{background:#E1F5EE;color:#0F6E56;}.hnum-b{background:#FAECE7;color:#993C1D;}
+.htype{font-size:11px;font-weight:500;padding:2px 7px;border-radius:4px;}
+.tp{background:#E6F1FB;color:#0C447C;}.tc{background:#EAF3DE;color:#27500A;}.td{background:#FAEEDA;color:#633806;}
+@media(prefers-color-scheme:dark){.tp{background:#0C447C;color:#B5D4F4;}.tc{background:#27500A;color:#C0DD97;}.td{background:#633806;color:#FAC775;}}
+.hinfo{flex:1;font-size:12px;color:var(--text3);}
+.hres{font-weight:500;}.hg{color:#0F6E56;}.hb{color:#993C1D;}
+.hdel{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 5px;border-radius:4px;}
+.hdel:hover{color:#993C1D;background:#FAECE7;}
+.empty{padding:2rem;text-align:center;color:var(--text3);font-size:13px;}
+.add-user-form{display:flex;gap:6px;margin-top:8px;}
+.add-user-form input{flex:1;font-size:13px;padding:6px 10px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);}
+.add-user-form input::placeholder{color:var(--text3);}
+.add-user-form input:focus{outline:none;border-color:var(--border2);}
+@media(max-width:480px){.stats-grid,.zone-grid{grid-template-columns:repeat(2,1fr);}.form-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>🏉 Patadas a los palos</h1>
+    <div class="user-row"><select id="user-select" onchange="switchUser(this.value)"></select></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('registrar')">Registrar</button>
+    <button class="tab" onclick="switchTab('partidos')">Partidos</button>
+    <button class="tab" onclick="switchTab('estadisticas')">Estadísticas</button>
+    <button class="tab" onclick="switchTab('historial')">Historial</button>
+  </div>
+
+  <!-- REGISTRAR -->
+  <div id="tab-registrar">
+    <div class="partido-selector">
+      <select id="partido-select" onchange="selectPartido(this.value)"><option value="">— Sin partido —</option></select>
+      <button onclick="showNP()">+ Nuevo partido</button>
+    </div>
+    <div id="np-form" style="display:none">
+      <div class="np-form">
+        <div class="section-label" style="margin-bottom:10px">Nuevo partido</div>
+        <div class="form-row">
+          <input type="text" id="np-rival" placeholder="Rival (ej: SIC)" maxlength="30"/>
+          <input type="date" id="np-fecha"/>
+        </div>
+        <div class="form-row">
+          <select id="np-equipo">
+            <option>Primera</option><option>Segunda</option><option>Tercera</option>
+            <option>M23</option><option>M21</option><option>M19</option><option>Pre B</option><option>Otro</option>
+          </select>
+          <input type="text" id="np-custom" placeholder="Otro equipo..." style="display:none" maxlength="20"/>
+        </div>
+        <div class="form-actions">
+          <button class="btn-sm" onclick="hideNP()">Cancelar</button>
+          <button class="btn-sm primary" onclick="crearPartido()">Crear</button>
+        </div>
+      </div>
+    </div>
+    <div class="section-label">Tipo de patada</div>
+    <div class="type-toggle">
+      <button class="type-btn active" onclick="setType('penal',this)">Penal</button>
+      <button class="type-btn" onclick="setType('conv',this)">Conversión</button>
+      <button class="type-btn" onclick="setType('drop',this)">Drop</button>
+    </div>
+    <div class="section-label">Tocá donde pateaste</div>
+    <div class="field-wrap">
+      <svg id="field-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="700" height="420" fill="#2e7d32"/>
+        <rect x="25" y="15" width="650" height="390" fill="none" stroke="white" stroke-width="2.5"/>
+        <line x1="90" y1="15" x2="90" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="610" y1="15" x2="610" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="118" y1="15" x2="118" y2="405" stroke="white" stroke-width="1.6" stroke-dasharray="10,7"/>
+        <line x1="582" y1="15" x2="582" y2="405" stroke="white" stroke-width="1.6" stroke-dasharray="10,7"/>
+        <line x1="200" y1="15" x2="200" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="500" y1="15" x2="500" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="350" y1="15" x2="350" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="295" y1="15" x2="295" y2="405" stroke="white" stroke-width="1.8" stroke-dasharray="10,7"/>
+        <line x1="405" y1="15" x2="405" y2="405" stroke="white" stroke-width="1.8" stroke-dasharray="10,7"/>
+        <!-- cruces y=70 -->
+        <line x1="111" y1="70" x2="125" y2="70" stroke="white" stroke-width="1.8"/><line x1="118" y1="63" x2="118" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="70" x2="207" y2="70" stroke="white" stroke-width="1.8"/><line x1="200" y1="63" x2="200" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="70" x2="302" y2="70" stroke="white" stroke-width="1.8"/><line x1="295" y1="63" x2="295" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="70" x2="357" y2="70" stroke="white" stroke-width="1.8"/><line x1="350" y1="63" x2="350" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="70" x2="412" y2="70" stroke="white" stroke-width="1.8"/><line x1="405" y1="63" x2="405" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="70" x2="507" y2="70" stroke="white" stroke-width="1.8"/><line x1="500" y1="63" x2="500" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="70" x2="589" y2="70" stroke="white" stroke-width="1.8"/><line x1="582" y1="63" x2="582" y2="77" stroke="white" stroke-width="1.8"/>
+        <!-- cruces y=120 -->
+        <line x1="111" y1="120" x2="125" y2="120" stroke="white" stroke-width="1.8"/><line x1="118" y1="113" x2="118" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="120" x2="207" y2="120" stroke="white" stroke-width="1.8"/><line x1="200" y1="113" x2="200" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="120" x2="302" y2="120" stroke="white" stroke-width="1.8"/><line x1="295" y1="113" x2="295" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="120" x2="357" y2="120" stroke="white" stroke-width="1.8"/><line x1="350" y1="113" x2="350" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="120" x2="412" y2="120" stroke="white" stroke-width="1.8"/><line x1="405" y1="113" x2="405" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="120" x2="507" y2="120" stroke="white" stroke-width="1.8"/><line x1="500" y1="113" x2="500" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="120" x2="589" y2="120" stroke="white" stroke-width="1.8"/><line x1="582" y1="113" x2="582" y2="127" stroke="white" stroke-width="1.8"/>
+        <!-- cruces y=300 -->
+        <line x1="111" y1="300" x2="125" y2="300" stroke="white" stroke-width="1.8"/><line x1="118" y1="293" x2="118" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="300" x2="207" y2="300" stroke="white" stroke-width="1.8"/><line x1="200" y1="293" x2="200" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="300" x2="302" y2="300" stroke="white" stroke-width="1.8"/><line x1="295" y1="293" x2="295" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="300" x2="357" y2="300" stroke="white" stroke-width="1.8"/><line x1="350" y1="293" x2="350" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="300" x2="412" y2="300" stroke="white" stroke-width="1.8"/><line x1="405" y1="293" x2="405" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="300" x2="507" y2="300" stroke="white" stroke-width="1.8"/><line x1="500" y1="293" x2="500" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="300" x2="589" y2="300" stroke="white" stroke-width="1.8"/><line x1="582" y1="293" x2="582" y2="307" stroke="white" stroke-width="1.8"/>
+        <!-- cruces y=350 -->
+        <line x1="111" y1="350" x2="125" y2="350" stroke="white" stroke-width="1.8"/><line x1="118" y1="343" x2="118" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="350" x2="207" y2="350" stroke="white" stroke-width="1.8"/><line x1="200" y1="343" x2="200" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="350" x2="302" y2="350" stroke="white" stroke-width="1.8"/><line x1="295" y1="343" x2="295" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="350" x2="357" y2="350" stroke="white" stroke-width="1.8"/><line x1="350" y1="343" x2="350" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="350" x2="412" y2="350" stroke="white" stroke-width="1.8"/><line x1="405" y1="343" x2="405" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="350" x2="507" y2="350" stroke="white" stroke-width="1.8"/><line x1="500" y1="343" x2="500" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="350" x2="589" y2="350" stroke="white" stroke-width="1.8"/><line x1="582" y1="343" x2="582" y2="357" stroke="white" stroke-width="1.8"/>
+        <!-- arcos H acostada -->
+        <line x1="90" y1="180" x2="38" y2="180" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="90" y1="240" x2="38" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="64" y1="180" x2="64" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="610" y1="180" x2="662" y2="180" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="610" y1="240" x2="662" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="636" y1="180" x2="636" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <g id="kicks-layer"></g>
+        <circle id="pending-dot" cx="-999" cy="-999" r="11" fill="white" opacity="0.9" stroke="#1a4a1a" stroke-width="2"/>
+      </svg>
+    </div>
+    <div id="result-section" style="display:none">
+      <div class="pending-banner">📍 <span id="pending-label">Posición marcada — ¿entró?</span></div>
+      <div class="result-btns">
+        <button class="result-btn good" onclick="registerKick(true)">✓ Entró</button>
+        <button class="result-btn miss" onclick="registerKick(false)">✕ No entró</button>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Eficacia global</div><div class="stat-value" id="s-pct">—</div><div class="stat-sub" id="s-frac">sin datos</div></div>
+      <div class="stat-card"><div class="stat-label">Este partido</div><div class="stat-value" id="s-part">—</div><div class="stat-sub" id="s-part-f">sin partido</div></div>
+      <div class="stat-card"><div class="stat-label">Racha</div><div class="stat-value" id="s-streak">—</div><div class="stat-sub" id="s-streak-s">consecutivas</div></div>
+    </div>
+  </div>
+
+  <!-- PARTIDOS -->
+  <div id="tab-partidos" style="display:none">
+    <div id="partidos-list"></div>
+    <div class="empty" id="partidos-empty" style="display:none">Todavía no creaste ningún partido</div>
+  </div>
+
+  <!-- ESTADÍSTICAS -->
+  <div id="tab-estadisticas" style="display:none">
+    <div class="section-label" style="margin-bottom:8px">Por tipo de patada</div>
+    <div class="zone-grid" id="type-stats"></div>
+    <div class="section-label" style="margin-bottom:8px">Por zona del campo</div>
+    <div class="field-wrap">
+      <svg id="zone-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="700" height="420" fill="#2e7d32"/>
+        <rect x="25" y="15" width="650" height="390" fill="none" stroke="white" stroke-width="2.5"/>
+        <line x1="90" y1="15" x2="90" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="610" y1="15" x2="610" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="118" y1="15" x2="118" y2="405" stroke="white" stroke-width="1.4" stroke-dasharray="10,7"/>
+        <line x1="582" y1="15" x2="582" y2="405" stroke="white" stroke-width="1.4" stroke-dasharray="10,7"/>
+        <line x1="200" y1="15" x2="200" y2="405" stroke="white" stroke-width="1.8"/>
+        <line x1="500" y1="15" x2="500" y2="405" stroke="white" stroke-width="1.8"/>
+        <line x1="350" y1="15" x2="350" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="295" y1="15" x2="295" y2="405" stroke="white" stroke-width="1.5" stroke-dasharray="10,7"/>
+        <line x1="405" y1="15" x2="405" y2="405" stroke="white" stroke-width="1.5" stroke-dasharray="10,7"/>
+        <line x1="90" y1="180" x2="38" y2="180" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="90" y1="240" x2="38" y2="240" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="64" y1="180" x2="64" y2="240" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="610" y1="180" x2="662" y2="180" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="610" y1="240" x2="662" y2="240" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="636" y1="180" x2="636" y2="240" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="90" y1="155" x2="610" y2="155" stroke="white" stroke-width="0.6" opacity="0.3"/>
+        <line x1="90" y1="265" x2="610" y2="265" stroke="white" stroke-width="0.6" opacity="0.3"/>
+        <g id="zone-labels"></g>
+      </svg>
+    </div>
+    <div class="empty" id="stats-empty" style="display:none">Sin patadas registradas todavía</div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div id="tab-historial" style="display:none">
+    <div id="history-container"></div>
+    <div class="divider"></div>
+    <div class="section-label">Agregar pateador</div>
+    <div class="add-user-form">
+      <input type="text" id="new-user-input" placeholder="Nombre" maxlength="30"/>
+      <button class="btn-sm" onclick="addUser()">+ Agregar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SK='rk_kicks_v4',UK='rk_users_v4',PK='rk_partidos_v4';
+let D={
+  users:JSON.parse(localStorage.getItem(UK)||'["Yo"]'),
+  cur:'Yo',
+  kicks:JSON.parse(localStorage.getItem(SK)||'{}'),
+  partidos:JSON.parse(localStorage.getItem(PK)||'{}'),
+  type:'penal',partidoId:null,px:null,py:null,tab:'registrar'
+};
+function save(){localStorage.setItem(SK,JSON.stringify(D.kicks));localStorage.setItem(UK,JSON.stringify(D.users));localStorage.setItem(PK,JSON.stringify(D.partidos));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+function uK(){return D.kicks[D.cur]||[];}
+function uP(){return D.partidos[D.cur]||{};}
+function calcS(kicks){if(!kicks.length)return null;const m=kicks.filter(k=>k.made).length;return{pct:Math.round(m/kicks.length*100),made:m,total:kicks.length};}
+function streak(kicks){let s=0;for(let i=kicks.length-1;i>=0;i--){if(kicks[i].made)s++;else break;}return s;}
+function getZone(x,y){const rx=(x-90)/520,ry=(y-15)/390;const hz=rx<0.33?'Izq':rx<0.67?'Centro':'Der';const vz=ry<0.38?'Arriba':ry>0.62?'Abajo':'Centro';return hz+(vz!=='Centro'?' '+vz:'');}
+function pctCol(p){return p>=80?'pct-g':p>=50?'pct-m':'pct-b';}
+function switchUser(n){D.cur=n;cancelP();render();}
+function switchTab(t){
+  D.tab=t;
+  ['registrar','partidos','estadisticas','historial'].forEach(x=>document.getElementById('tab-'+x).style.display=x===t?'':'none');
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',['registrar','partidos','estadisticas','historial'][i]===t));
+  if(t!=='registrar')cancelP();render();
+}
+function setType(t,btn){D.type=t;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function showNP(){document.getElementById('np-form').style.display='';document.getElementById('np-fecha').valueAsDate=new Date();document.getElementById('np-equipo').onchange=function(){document.getElementById('np-custom').style.display=this.value==='Otro'?'':'none';};}
+function hideNP(){document.getElementById('np-form').style.display='none';}
+function crearPartido(){
+  const rival=document.getElementById('np-rival').value.trim()||'Sin rival';
+  const fecha=document.getElementById('np-fecha').value||new Date().toISOString().slice(0,10);
+  const eq=document.getElementById('np-equipo').value;
+  const equipo=eq==='Otro'?(document.getElementById('np-custom').value.trim()||'Otro'):eq;
+  const id=uid();
+  if(!D.partidos[D.cur])D.partidos[D.cur]={};
+  D.partidos[D.cur][id]={id,rival,fecha,equipo,created:Date.now()};
+  D.partidoId=id;save();hideNP();renderPartidoSelect();
+  document.getElementById('partido-select').value=id;render();
+}
+function selectPartido(id){D.partidoId=id||null;render();}
+function handleClick(e){
+  if(D.tab!=='registrar')return;
+  const svg=document.getElementById('field-svg');
+  const r=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal;
+  D.px=(e.clientX-r.left)*(vb.width/r.width);
+  D.py=(e.clientY-r.top)*(vb.height/r.height);
+  document.getElementById('pending-dot').setAttribute('cx',D.px);
+  document.getElementById('pending-dot').setAttribute('cy',D.py);
+  document.getElementById('pending-label').textContent='Zona: '+getZone(D.px,D.py)+' — ¿entró?';
+  document.getElementById('result-section').style.display='';
+}
+function cancelP(){D.px=D.py=null;const d=document.getElementById('pending-dot');if(d){d.setAttribute('cx',-999);d.setAttribute('cy',-999);}const r=document.getElementById('result-section');if(r)r.style.display='none';}
+function registerKick(made){
+  if(D.px===null)return;
+  if(!D.kicks[D.cur])D.kicks[D.cur]=[];
+  D.kicks[D.cur].push({x:Math.round(D.px),y:Math.round(D.py),type:D.type,made,zone:getZone(D.px,D.py),partidoId:D.partidoId||null,date:new Date().toISOString()});
+  save();cancelP();render();
+}
+function deleteKick(i){D.kicks[D.cur].splice(i,1);save();render();}
+function addUser(){const inp=document.getElementById('new-user-input'),name=inp.value.trim();if(!name||D.users.includes(name))return;D.users.push(name);D.kicks[name]=[];D.partidos[name]={};save();inp.value='';renderUserSelect();render();}
+function renderUserSelect(){document.getElementById('user-select').innerHTML=D.users.map(u=>`<option value="${u}" ${u===D.cur?'selected':''}>${u}</option>`).join('');}
+function renderPartidoSelect(){const ps=uP(),sorted=Object.values(ps).sort((a,b)=>b.created-a.created);document.getElementById('partido-select').innerHTML='<option value="">— Sin partido —</option>'+sorted.map(p=>`<option value="${p.id}" ${p.id===D.partidoId?'selected':''}>${p.fecha} · ${p.rival} (${p.equipo})</option>`).join('');}
+function render(){
+  renderUserSelect();renderPartidoSelect();
+  const kicks=uK(),allS=calcS(kicks),partK=D.partidoId?kicks.filter(k=>k.partidoId===D.partidoId):[],partS=calcS(partK),cur=streak(kicks);
+  document.getElementById('s-pct').textContent=allS?allS.pct+'%':'—';
+  document.getElementById('s-frac').textContent=allS?allS.made+' de '+allS.total:'sin datos';
+  document.getElementById('s-part').textContent=partS?partS.pct+'%':D.partidoId?'—':'sin partido';
+  document.getElementById('s-part-f').textContent=partS?partS.made+' de '+partS.total:'';
+  document.getElementById('s-streak').textContent=cur||'—';
+  document.getElementById('s-streak-s').textContent=cur===1?'consecutiva':'consecutivas';
+  renderField(kicks);renderPartidos(kicks);renderTypeStats(kicks);renderZoneStats(kicks);renderHistory(kicks);
+}
+function renderField(kicks){document.getElementById('kicks-layer').innerHTML=kicks.map((k,i)=>{const c=k.made?'#5DCAA5':'#F0997B',s=k.made?'#0F6E56':'#993C1D';return`<g><circle cx="${k.x}" cy="${k.y}" r="12" fill="${c}" stroke="${s}" stroke-width="1.5" opacity="0.92"/><text x="${k.x}" y="${k.y+4}" text-anchor="middle" fill="${k.made?'#085041':'#712B13'}" font-size="10" font-weight="500" font-family="sans-serif">${i+1}</text></g>`;}).join('');}
+function renderPartidos(kicks){
+  const ps=uP(),sorted=Object.values(ps).sort((a,b)=>b.created-a.created);
+  const c=document.getElementById('partidos-list');
+  document.getElementById('partidos-empty').style.display=sorted.length?'none':'';
+  if(!sorted.length){c.innerHTML='';return;}
+  const tl={penal:'Penal',conv:'Conv',drop:'Drop'};
+  c.innerHTML=sorted.map(p=>{const pk=kicks.filter(k=>k.partidoId===p.id),s=calcS(pk);const byType=['penal','conv','drop'].map(t=>{const tk=pk.filter(k=>k.type===t),ts=calcS(tk);return ts?`${tl[t]}: ${ts.pct}% (${ts.made}/${ts.total})`:''}).filter(Boolean).join(' · ');return`<div class="partido-card ${p.id===D.partidoId?'activo':''}"><div class="partido-card-header"><div><div class="partido-card-title">vs ${p.rival}</div><div class="partido-card-sub">${p.fecha} <span class="badge-eq">${p.equipo}</span></div></div><div class="partido-pct ${s?pctCol(s.pct):''}">${s?s.pct+'%':'—'}</div></div><div class="partido-detail">${s?s.made+' de '+s.total+' patadas':'Sin patadas'}${byType?' · '+byType:''}</div></div>`;}).join('');
+}
+function renderTypeStats(kicks){document.getElementById('type-stats').innerHTML=[{k:'penal',l:'Penal'},{k:'conv',l:'Conversión'},{k:'drop',l:'Drop'}].map(t=>{const s=calcS(kicks.filter(k=>k.type===t.k));return`<div class="zone-card"><div class="zone-name">${t.l}</div><div class="zone-pct">${s?s.pct+'%':'—'}</div><div class="zone-count">${s?s.made+'/'+s.total:'sin datos'}</div></div>`;}).join('');document.getElementById('stats-empty').style.display=kicks.length?'none':'';}
+function renderZoneStats(kicks){const zones=[{k:'Izq Arriba',cx:160,cy:80},{k:'Centro Arriba',cx:350,cy:80},{k:'Der Arriba',cx:540,cy:80},{k:'Izq',cx:160,cy:210},{k:'Centro',cx:350,cy:210},{k:'Der',cx:540,cy:210},{k:'Izq Abajo',cx:160,cy:340},{k:'Centro Abajo',cx:350,cy:340},{k:'Der Abajo',cx:540,cy:340}];document.getElementById('zone-labels').innerHTML=zones.map(z=>{const zk=kicks.filter(k=>k.zone===z.k),s=calcS(zk);const col=s?(s.pct>=80?'#5DCAA5':s.pct>=50?'#EF9F27':'#F0997B'):'rgba(255,255,255,0.12)';return`<g><rect x="${z.cx-30}" y="${z.cy-22}" width="60" height="38" rx="6" fill="${col}" opacity="0.9"/><text x="${z.cx}" y="${z.cy-4}" text-anchor="middle" font-size="13" font-weight="500" fill="white" font-family="sans-serif">${s?s.pct+'%':'—'}</text><text x="${z.cx}" y="${z.cy+12}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.8)" font-family="sans-serif">${s?s.made+'/'+s.total:''}</text></g>`;}).join('');}
+function renderHistory(kicks){const c=document.getElementById('history-container');if(!kicks.length){c.innerHTML='<div class="empty">Sin patadas registradas todavía</div>';return;}const tl={penal:'Penal',conv:'Conv',drop:'Drop'},tc={penal:'tp',conv:'tc',drop:'td'};const ps=uP();c.innerHTML='<div class="history-list">'+[...kicks].map((k,i)=>({...k,idx:i})).reverse().map(k=>{const p=k.partidoId?ps[k.partidoId]:null;return`<div class="hrow"><div class="hnum ${k.made?'hnum-g':'hnum-b'}">${k.idx+1}</div><span class="htype ${tc[k.type]}">${tl[k.type]}</span><div class="hinfo">${k.zone}${p?' · vs '+p.rival:''}</div><span class="hres ${k.made?'hg':'hb'}">${k.made?'Entró':'No entró'}</span><button class="hdel" onclick="deleteKick(${k.idx})">🗑</button></div>`;}).join('')+'</div>';}
+document.getElementById('field-svg').addEventListener('click',handleClick);
+if(!D.kicks[D.cur])D.kicks[D.cur]=[];
+if(!D.partidos[D.cur])D.partidos[D.cur]={};
+render();
+</script>
+</body>
+</html>
