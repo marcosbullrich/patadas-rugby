@@ -1,0 +1,20 @@
+{
+  "name": "Patadas a los Palos",
+  "short_name": "Patadas",
+  "description": "Tracker de patadas a los palos para rugby",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080E13",
+  "theme_color": "#080E13",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23080E13'/%3E%3Crect x='30' y='30' width='452' height='452' rx='70' fill='%230D1F16' stroke='%2300C278' stroke-width='4' opacity='0.5'/%3E%3Ctext x='256' y='310' text-anchor='middle' font-size='220' font-family='sans-serif'%3E%F0%9F%8F%89%3C/text%3E%3Ctext x='256' y='430' text-anchor='middle' font-size='60' font-weight='900' font-family='sans-serif' fill='%2300C278' letter-spacing='4'%3EPALOS%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "health", "utilities"],
+  "screenshots": []
+}
