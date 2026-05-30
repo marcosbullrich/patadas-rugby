@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Patadas — Rugby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<!-- PWA -->
+<meta name="application-name" content="Patadas"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Patadas"/>
+<meta name="theme-color" content="#080E13"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<link rel="manifest" href="manifest.json"/>
+
+<!-- Apple touch icon (inline SVG converted) -->
+<link rel="apple-touch-icon" href="data:image/png;base64,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"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+:root {
+  --green:#00C278;
+  --green-dim:rgba(0,194,120,0.15);
+  --green-border:rgba(0,194,120,0.3);
+  --amber:#F59E0B;
+  --amber-dim:rgba(245,158,11,0.15);
+  --red:#F05252;
+  --red-dim:rgba(240,82,82,0.15);
+  --blue:#60A5FA;
+
+  --bg:      #0C1015;
+  --surface: #131C26;
+  --surface2:#1C2733;
+  --surface3:#243040;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text:    #EDF2F7;
+  --text2:   #8A9AB0;
+  --text3:   #4A5A6B;
+
+  --r:8px; --rl:14px;
+  --font-display:'Barlow Condensed',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+/* ── SPLASH ── */
+.splash {
+  position: fixed; inset: 0; z-index: 1000;
+  background: #080E13;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem;
+  animation: splashIn 0.6s ease forwards;
+}
+.splash.hiding {
+  animation: splashOut 0.5s ease forwards;
+  pointer-events: none;
+}
+@keyframes splashIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes splashOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.04); }
+}
+
+.splash-field-bg {
+  position: absolute; inset: 0; overflow: hidden; opacity: 0.06;
+}
+.splash-field-bg svg { width: 100%; height: 100%; object-fit: cover; }
+
+.splash-logo {
+  position: relative; z-index: 1;
+  width: 88px; height: 88px; border-radius: 22px;
+  background: rgba(0,194,120,0.12);
+  border: 1px solid rgba(0,194,120,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 42px;
+  margin-bottom: 28px;
+  animation: logoFloat 0.8s ease 0.2s both;
+  box-shadow: 0 0 60px rgba(0,194,120,0.15);
+}
+@keyframes logoFloat {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to   { opacity: 1; transform: none; }
+}
+
+.splash-title {
+  position: relative; z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(52px, 12vw, 80px);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.06em;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 10px;
+  animation: textUp 0.7s ease 0.35s both;
+}
+.splash-title span { color: var(--green); }
+
+.splash-subtitle {
+  position: relative; z-index: 1;
+  font-size: 13px; font-weight: 500;
+  color: var(--text2); letter-spacing: 0.14em;
+  text-transform: uppercase; text-align: center;
+  margin-bottom: 52px;
+  animation: textUp 0.7s ease 0.45s both;
+}
+
+@keyframes textUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.splash-line {
+  position: relative; z-index: 1;
+  width: 48px; height: 2px;
+  background: var(--green);
+  border-radius: 2px;
+  margin: 0 auto 48px;
+  animation: lineGrow 0.6s ease 0.5s both;
+  box-shadow: 0 0 12px rgba(0,194,120,0.6);
+}
+@keyframes lineGrow {
+  from { width: 0; opacity: 0; }
+  to   { width: 48px; opacity: 1; }
+}
+
+.splash-btn {
+  position: relative; z-index: 1;
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 16px 56px;
+  border-radius: 50px;
+  border: 1.5px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+  transition: all 0.25s;
+  animation: btnUp 0.7s ease 0.6s both;
+}
+.splash-btn:hover {
+  background: var(--green);
+  color: #080E13;
+  box-shadow: 0 0 40px rgba(0,194,120,0.35);
+  transform: scale(1.03);
+}
+@keyframes btnUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.splash-version {
+  position: absolute; bottom: 24px;
+  font-size: 11px; color: var(--text3);
+  letter-spacing: 0.08em; z-index: 1;
+  animation: btnUp 0.7s ease 0.8s both;
+}
+
+/* ── HEADER ── */
+.app-header {
+  background: linear-gradient(135deg, #0A1F14 0%, #0C1520 100%);
+  border-bottom: 1px solid var(--green-border);
+  padding: 0 1.25rem;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px; gap: 12px;
+}
+.app-brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--green-dim); border: 1px solid var(--green-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.brand-title {
+  font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  color: var(--text); letter-spacing: 0.02em;
+}
+.brand-sub { font-size: 11px; color: var(--green); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+
+.user-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 5px 12px;
+}
+.user-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+select.usr {
+  background: transparent; border: none; color: var(--text);
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  cursor: pointer; outline: none;
+  -webkit-appearance: none; padding-right: 4px;
+}
+select.usr option { background: var(--surface2); }
+
+/* ── MAIN ── */
+.app { max-width: 860px; margin: 0 auto; padding: 1.25rem 1.25rem 0; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+.tab {
+  flex: 1; text-align: center; padding: 10px 8px;
+  border: none; font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  background: transparent; color: var(--text2); cursor: pointer;
+  position: relative; transition: color 0.2s; letter-spacing: 0.01em;
+}
+.tab::after {
+  content: ''; position: absolute; bottom: -1px; left: 20%; right: 20%;
+  height: 2px; background: var(--green); border-radius: 2px 2px 0 0;
+  opacity: 0; transition: opacity 0.2s, left 0.2s, right 0.2s;
+}
+.tab.active { color: var(--green); }
+.tab.active::after { opacity: 1; left: 15%; right: 15%; }
+
+/* ── SECTION LABEL ── */
+.slabel {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  color: var(--text2); letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 10px; display: block;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rl); padding: 16px;
+}
+.card-accent { border-color: var(--green-border); }
+
+/* ── GLOBAL EFF CARD ── */
+.global-card {
+  background: linear-gradient(135deg, #0D1F16 0%, var(--surface) 100%);
+  border: 1px solid var(--green-border);
+  border-radius: var(--rl); padding: 28px 20px;
+  text-align: center; margin-bottom: 1.25rem;
+  position: relative; overflow: hidden;
+}
+.global-card::before {
+  content: ''; position: absolute; top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(0,194,120,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.global-label {
+  font-family: var(--font-display); font-size: 12px; font-weight: 600;
+  color: var(--green); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.global-pct {
+  font-family: var(--font-display); font-size: 72px; font-weight: 800;
+  line-height: 1; color: var(--text); letter-spacing: -0.02em;
+}
+.global-pct.good { color: var(--green); text-shadow: 0 0 40px rgba(0,194,120,0.4); }
+.global-pct.mid  { color: var(--amber); text-shadow: 0 0 40px rgba(245,158,11,0.3); }
+.global-pct.bad  { color: var(--red);   text-shadow: 0 0 40px rgba(240,82,82,0.3); }
+.global-frac { font-size: 13px; color: var(--text2); margin-top: 8px; }
+
+/* ── TYPE GRID ── */
+.zgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 1.25rem; }
+.zcard {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 12px 14px; text-align: center;
+  transition: border-color 0.2s;
+}
+.zcard:hover { border-color: var(--border2); }
+.zname { font-size: 11px; color: var(--text3); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+.zpct { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--text); }
+.zcnt { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.zcard-drop { border-color: rgba(96,165,250,0.2); }
+.zcard-drop .zpct { color: var(--blue); }
+
+/* ── FIELD WRAP ── */
+.fwrap { border-radius: var(--rl); overflow: hidden; border: 1px solid var(--border2); cursor: crosshair; }
+.fwrap svg { display: block; width: 100%; }
+.mini-field { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); margin-bottom: 12px; }
+.mini-field svg { display: block; width: 100%; }
+
+/* ── FORM ── */
+.npform {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--rl); padding: 16px; margin-bottom: 1rem;
+}
+.form-title {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--text); letter-spacing: 0.03em; margin-bottom: 14px;
+}
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.frow input, .frow select {
+  font-size: 13px; padding: 9px 12px;
+  border: 1px solid var(--border2); border-radius: var(--r);
+  background: var(--surface2); color: var(--text);
+  width: 100%; font-family: var(--font-body);
+  transition: border-color 0.2s;
+}
+.frow input::placeholder { color: var(--text3); }
+.frow input:focus, .frow select:focus { outline: none; border-color: var(--green-border); background: var(--surface3); }
+.frow select option { background: var(--surface2); }
+.factions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+
+/* ── BUTTONS ── */
+.pbtn {
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  padding: 8px 16px; border-radius: var(--r);
+  border: 1px solid var(--border2); background: var(--surface2);
+  color: var(--text2); cursor: pointer; transition: all 0.15s;
+  white-space: nowrap;
+}
+.pbtn:hover { background: var(--surface3); color: var(--text); border-color: var(--border2); }
+.pbtn.primary {
+  background: var(--green); color: #000; border-color: var(--green);
+  font-weight: 600;
+}
+.pbtn.primary:hover { background: #00d988; border-color: #00d988; }
+
+.create-btn {
+  width: 100%; padding: 16px;
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  letter-spacing: 0.04em; border-radius: var(--rl);
+  background: var(--green-dim); border: 1px solid var(--green-border);
+  color: var(--green); cursor: pointer;
+  transition: all 0.2s; text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.create-btn:hover {
+  background: var(--green); color: #000;
+  box-shadow: 0 0 30px rgba(0,194,120,0.3);
+}
+
+/* ── TYPE TOGGLE ── */
+.ttog { display: flex; gap: 6px; margin-bottom: 1rem; }
+.tbtn {
+  padding: 7px 18px; border-radius: 20px;
+  border: 1px solid var(--border2); font-size: 13px; font-weight: 500;
+  background: transparent; color: var(--text2); cursor: pointer;
+  font-family: var(--font-body); transition: all 0.15s;
+}
+.tbtn.active {
+  background: var(--green-dim); color: var(--green);
+  border-color: var(--green-border);
+}
+
+/* ── ZONE TOGGLE ── */
+.zone-toggle-btn {
+  font-size: 12px; padding: 4px 14px;
+  border: 1px solid var(--border2); border-radius: 20px;
+  background: transparent; color: var(--text2); cursor: pointer;
+  font-family: var(--font-body); transition: all 0.15s;
+}
+.zone-toggle-btn:hover { border-color: var(--green-border); color: var(--green); }
+
+/* ── PENDING BANNER ── */
+.pbanner {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: var(--r);
+  background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.3);
+  font-size: 13px; color: var(--amber); margin-bottom: 10px;
+}
+
+/* ── RESULT BUTTONS ── */
+.rbtns { display: flex; gap: 8px; margin-bottom: 1rem; }
+.rbtn {
+  flex: 1; padding: 14px;
+  border-radius: var(--r); border: 1px solid var(--border);
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  letter-spacing: 0.04em; cursor: pointer;
+  background: var(--surface); color: var(--text2);
+  text-transform: uppercase; transition: all 0.15s;
+}
+.rbtn.good {
+  border-color: var(--green-border); color: var(--green);
+  background: var(--green-dim);
+}
+.rbtn.good:hover { background: var(--green); color: #000; }
+.rbtn.miss {
+  border-color: rgba(240,82,82,0.3); color: var(--red);
+  background: var(--red-dim);
+}
+.rbtn.miss:hover { background: var(--red); color: #fff; }
+
+/* ── SAVE BAR ── */
+.savebar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-radius: var(--rl);
+  background: var(--surface); border: 1px solid var(--border);
+  margin-bottom: 1rem; gap: 8px; flex-wrap: wrap;
+}
+.savebar-info { font-size: 13px; color: var(--text2); }
+.savebar-info b { color: var(--text); font-weight: 600; }
+.save-btn {
+  padding: 9px 22px; border-radius: var(--r);
+  background: var(--green); color: #000; border: none;
+  font-family: var(--font-display); font-size: 15px; font-weight: 700;
+  letter-spacing: 0.04em; cursor: pointer; text-transform: uppercase;
+  transition: all 0.15s;
+}
+.save-btn:hover { background: #00d988; box-shadow: 0 0 20px rgba(0,194,120,0.3); }
+.save-btn:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+
+/* ── MINI STATS ── */
+.sgrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 1rem; }
+.scard {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px;
+}
+.slb { font-size: 11px; color: var(--text3); margin-bottom: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.sval { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--text); }
+.ssub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* ── TOAST ── */
+.success-toast {
+  display: none; padding: 12px 16px; border-radius: var(--r);
+  background: var(--green-dim); border: 1px solid var(--green-border);
+  color: var(--green); font-size: 13px; font-weight: 600;
+  margin-bottom: 1rem; text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* ── PARTIDO CARDS ── */
+.pc {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rl); margin-bottom: 10px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.pc:hover { border-color: var(--border2); }
+.pc-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; cursor: pointer; user-select: none;
+}
+.pc-head:hover { background: rgba(255,255,255,0.02); }
+.pc-rival {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  color: var(--text); letter-spacing: 0.02em;
+}
+.pc-meta { font-size: 12px; color: var(--text3); margin-top: 2px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pc-pct {
+  font-family: var(--font-display); font-size: 22px; font-weight: 800;
+  margin-left: auto; padding-right: 4px;
+}
+.pc-arr { font-size: 11px; color: var(--text3); transition: transform 0.2s; flex-shrink: 0; }
+.pc-arr.open { transform: rotate(180deg); }
+.pc-body { display: none; border-top: 1px solid var(--border); }
+.pc-body.open { display: block; }
+.pc-inner { padding: 14px 16px; }
+.pc-stats { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
+
+.krow {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.krow:last-child { border-bottom: none; }
+.knum {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
+}
+.kg { background: var(--green-dim); color: var(--green); }
+.kb { background: var(--red-dim); color: var(--red); }
+.ktype { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.tp { background: rgba(96,165,250,0.15); color: var(--blue); }
+.tc { background: rgba(0,194,120,0.12); color: var(--green); }
+.td { background: rgba(245,158,11,0.12); color: var(--amber); }
+.kinfo { flex: 1; font-size: 12px; color: var(--text3); }
+.kres { font-weight: 600; font-size: 13px; }
+.krg { color: var(--green); }
+.krb { color: var(--red); }
+.kdel {
+  background: none; border: none; color: var(--text3); cursor: pointer;
+  font-size: 14px; padding: 2px 5px; border-radius: 4px;
+  transition: all 0.15s;
+}
+.kdel:hover { color: var(--red); background: var(--red-dim); }
+.pc-actions { display: flex; gap: 8px; padding: 10px 0 2px; }
+
+/* ── BADGES ── */
+.badge-eq {
+  font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  background: rgba(245,158,11,0.15); color: var(--amber); font-weight: 600;
+}
+.badge-local { background: var(--green-dim); color: var(--green); font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.badge-visit { background: var(--red-dim); color: var(--red); font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+/* ── PCT COLORS ── */
+.pct-g { color: var(--green); }
+.pct-m { color: var(--amber); }
+.pct-b { color: var(--red); }
+
+/* ── CHARTS ── */
+.chart-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rl); padding: 16px;
+}
+.chart-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text2); letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* ── MISC ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+.empty { padding: 2.5rem; text-align: center; color: var(--text3); font-size: 13px; }
+.nopart-msg {
+  padding: 12px 16px; border-radius: var(--r);
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 13px; color: var(--text3); margin-bottom: 1.25rem;
+  text-align: center;
+}
+.field-label-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+@media(max-width:520px){
+  .sgrid,.zgrid{grid-template-columns:repeat(2,1fr);}
+  .frow{grid-template-columns:1fr;}
+  .global-pct{font-size:56px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<!-- ── SPLASH ── -->
+<div class="splash" id="splash">
+  <!-- Campo de fondo decorativo -->
+  <div class="splash-field-bg">
+    <svg viewBox="0 0 700 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <rect width="700" height="420" fill="#00C278"/>
+      <rect x="25" y="15" width="650" height="390" fill="none" stroke="white" stroke-width="3"/>
+      <line x1="90" y1="15" x2="90" y2="405" stroke="white" stroke-width="3"/>
+      <line x1="610" y1="15" x2="610" y2="405" stroke="white" stroke-width="3"/>
+      <line x1="350" y1="15" x2="350" y2="405" stroke="white" stroke-width="3"/>
+      <line x1="200" y1="15" x2="200" y2="405" stroke="white" stroke-width="2"/>
+      <line x1="500" y1="15" x2="500" y2="405" stroke="white" stroke-width="2"/>
+      <line x1="295" y1="15" x2="295" y2="405" stroke="white" stroke-width="1.5" stroke-dasharray="10,7"/>
+      <line x1="405" y1="15" x2="405" y2="405" stroke="white" stroke-width="1.5" stroke-dasharray="10,7"/>
+      <line x1="90" y1="180" x2="38" y2="180" stroke="white" stroke-width="5"/>
+      <line x1="90" y1="240" x2="38" y2="240" stroke="white" stroke-width="5"/>
+      <line x1="64" y1="180" x2="64" y2="240" stroke="white" stroke-width="5"/>
+      <line x1="610" y1="180" x2="662" y2="180" stroke="white" stroke-width="5"/>
+      <line x1="610" y1="240" x2="662" y2="240" stroke="white" stroke-width="5"/>
+      <line x1="636" y1="180" x2="636" y2="240" stroke="white" stroke-width="5"/>
+    </svg>
+  </div>
+  <div class="splash-logo">🏉</div>
+  <div class="splash-title">A LOS<br><span>PALOS</span></div>
+  <div class="splash-subtitle">Tracker de patadas · Rugby</div>
+  <div class="splash-line"></div>
+  <button class="splash-btn" onclick="enterApp()">Entrar</button>
+  <div class="splash-version">v1.0 · Temporada 2026</div>
+</div>
+
+<div class="app-header">
+  <div class="header-inner">
+    <div class="app-brand">
+      <div class="brand-icon">🏉</div>
+      <div class="brand-text">
+        <span class="brand-title">PATADAS</span>
+        
+      </div>
+    </div>
+    <div class="user-pill">
+      <div class="user-dot"></div>
+      <select class="usr" id="user-select" onchange="switchUser(this.value)"></select>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('registrar')">Registrar</button>
+    <button class="tab" onclick="switchTab('partidos')">Partidos</button>
+    <button class="tab" onclick="switchTab('estadisticas')">Estadísticas</button>
+  </div>
+
+  <!-- ══ REGISTRAR ══ -->
+  <div id="tab-registrar">
+    <div id="success-toast" class="success-toast">✓ Partido guardado correctamente</div>
+
+    <div id="crear-btn">
+      <button class="create-btn" onclick="showNP()">+ Crear partido</button>
+    </div>
+
+    <div id="np-form" style="display:none;margin-bottom:1.25rem;">
+      <div class="npform">
+        <div class="form-title">Nuevo partido</div>
+        <div class="frow">
+          <select id="np-rival">
+            <option value="">— Rival —</option>
+            <option>Hindú</option><option>CASI</option><option>SIC</option>
+            <option>Atlético del Rosario</option><option>Alumni</option><option>Regatas</option>
+            <option>CUBA</option><option>Matreros</option><option>Los Tilos</option>
+            <option>Champagnat</option><option>Belgrano</option><option>BACRC</option>
+            <option>La Plata Rugby</option>
+          </select>
+          <input type="date" id="np-fecha"/>
+        </div>
+        <div class="frow">
+          <select id="np-equipo">
+            <option>Primera</option><option>Intermedia</option><option>Pre A</option>
+            <option>Pre B</option><option>M22</option><option>Pre C</option><option>Pre D</option>
+            <option>Pre E</option><option>Pre F</option><option>Pre G</option><option>Pre H</option>
+          </select>
+          <select id="np-localidad">
+            <option value="Local">Local</option>
+            <option value="Visitante">Visitante</option>
+          </select>
+        </div>
+        <div class="frow">
+          <input type="number" id="np-fecha-torneo" placeholder="Fecha del torneo (ej: 2)" min="1" max="30"/>
+          <div></div>
+        </div>
+        <div class="factions">
+          <button class="pbtn" onclick="hideNP()">Cancelar</button>
+          <button class="pbtn primary" onclick="crearPartido()">Crear partido</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campo siempre visible -->
+    <div class="field-label-row">
+      <span class="slabel" id="field-label" style="color:var(--text3)">Vista previa</span>
+      <button class="zone-toggle-btn" id="zone-toggle-btn" onclick="toggleZones()">Ocultar zonas</button>
+    </div>
+    <div style="position:relative;margin-bottom:1.25rem;">
+      <div class="fwrap">
+        <svg id="field-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="700" height="420" fill="#2e7d32"/>
+        <rect x="25" y="15" width="650" height="390" fill="none" stroke="white" stroke-width="2.5"/>
+        <line x1="90" y1="15" x2="90" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="610" y1="15" x2="610" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="118" y1="15" x2="118" y2="405" stroke="white" stroke-width="1.6" stroke-dasharray="10,7"/>
+        <line x1="582" y1="15" x2="582" y2="405" stroke="white" stroke-width="1.6" stroke-dasharray="10,7"/>
+        <line x1="200" y1="15" x2="200" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="500" y1="15" x2="500" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="350" y1="15" x2="350" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="295" y1="15" x2="295" y2="405" stroke="white" stroke-width="1.8" stroke-dasharray="10,7"/>
+        <line x1="405" y1="15" x2="405" y2="405" stroke="white" stroke-width="1.8" stroke-dasharray="10,7"/>
+        <line x1="111" y1="70" x2="125" y2="70" stroke="white" stroke-width="1.8"/><line x1="118" y1="63" x2="118" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="70" x2="207" y2="70" stroke="white" stroke-width="1.8"/><line x1="200" y1="63" x2="200" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="70" x2="302" y2="70" stroke="white" stroke-width="1.8"/><line x1="295" y1="63" x2="295" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="70" x2="357" y2="70" stroke="white" stroke-width="1.8"/><line x1="350" y1="63" x2="350" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="70" x2="412" y2="70" stroke="white" stroke-width="1.8"/><line x1="405" y1="63" x2="405" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="70" x2="507" y2="70" stroke="white" stroke-width="1.8"/><line x1="500" y1="63" x2="500" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="70" x2="589" y2="70" stroke="white" stroke-width="1.8"/><line x1="582" y1="63" x2="582" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="111" y1="120" x2="125" y2="120" stroke="white" stroke-width="1.8"/><line x1="118" y1="113" x2="118" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="120" x2="207" y2="120" stroke="white" stroke-width="1.8"/><line x1="200" y1="113" x2="200" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="120" x2="302" y2="120" stroke="white" stroke-width="1.8"/><line x1="295" y1="113" x2="295" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="120" x2="357" y2="120" stroke="white" stroke-width="1.8"/><line x1="350" y1="113" x2="350" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="120" x2="412" y2="120" stroke="white" stroke-width="1.8"/><line x1="405" y1="113" x2="405" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="120" x2="507" y2="120" stroke="white" stroke-width="1.8"/><line x1="500" y1="113" x2="500" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="120" x2="589" y2="120" stroke="white" stroke-width="1.8"/><line x1="582" y1="113" x2="582" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="111" y1="300" x2="125" y2="300" stroke="white" stroke-width="1.8"/><line x1="118" y1="293" x2="118" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="300" x2="207" y2="300" stroke="white" stroke-width="1.8"/><line x1="200" y1="293" x2="200" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="300" x2="302" y2="300" stroke="white" stroke-width="1.8"/><line x1="295" y1="293" x2="295" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="300" x2="357" y2="300" stroke="white" stroke-width="1.8"/><line x1="350" y1="293" x2="350" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="300" x2="412" y2="300" stroke="white" stroke-width="1.8"/><line x1="405" y1="293" x2="405" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="300" x2="507" y2="300" stroke="white" stroke-width="1.8"/><line x1="500" y1="293" x2="500" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="300" x2="589" y2="300" stroke="white" stroke-width="1.8"/><line x1="582" y1="293" x2="582" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="111" y1="350" x2="125" y2="350" stroke="white" stroke-width="1.8"/><line x1="118" y1="343" x2="118" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="350" x2="207" y2="350" stroke="white" stroke-width="1.8"/><line x1="200" y1="343" x2="200" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="350" x2="302" y2="350" stroke="white" stroke-width="1.8"/><line x1="295" y1="343" x2="295" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="350" x2="357" y2="350" stroke="white" stroke-width="1.8"/><line x1="350" y1="343" x2="350" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="350" x2="412" y2="350" stroke="white" stroke-width="1.8"/><line x1="405" y1="343" x2="405" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="350" x2="507" y2="350" stroke="white" stroke-width="1.8"/><line x1="500" y1="343" x2="500" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="350" x2="589" y2="350" stroke="white" stroke-width="1.8"/><line x1="582" y1="343" x2="582" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="90" y1="180" x2="38" y2="180" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="90" y1="240" x2="38" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="64" y1="180" x2="64" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="610" y1="180" x2="662" y2="180" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="610" y1="240" x2="662" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="636" y1="180" x2="636" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          <g id="zones-layer"><rect x="90" y="15" width="205" height="55" fill="#F44336" fill-opacity="0.35"/>
+            <circle cx="192" cy="42" r="12" fill="#B71C1C"/><text x="192" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">5</text>
+            <rect x="90" y="70" width="205" height="50" fill="#FF9800" fill-opacity="0.35"/>
+            <circle cx="192" cy="95" r="12" fill="#E65100"/><text x="192" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">2</text>
+            <rect x="90" y="120" width="110" height="180" fill="#4CAF50" fill-opacity="0.32"/>
+            <circle cx="145" cy="210" r="13" fill="#2E7D32"/><text x="145" y="215" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="sans-serif">1</text>
+            <rect x="200" y="120" width="95" height="180" fill="#CDDC39" fill-opacity="0.35"/>
+            <circle cx="247" cy="210" r="12" fill="#827717"/><text x="247" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">4</text>
+            <rect x="90" y="300" width="205" height="50" fill="#FF9800" fill-opacity="0.35"/>
+            <circle cx="192" cy="325" r="12" fill="#E65100"/><text x="192" y="330" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">3</text>
+            <rect x="90" y="350" width="205" height="55" fill="#F44336" fill-opacity="0.35"/>
+            <circle cx="192" cy="378" r="12" fill="#B71C1C"/><text x="192" y="383" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">6</text>
+            <rect x="295" y="15" width="110" height="105" fill="#FF5722" fill-opacity="0.35"/>
+            <circle cx="350" cy="65" r="12" fill="#BF360C"/><text x="350" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">8</text>
+            <rect x="295" y="120" width="110" height="180" fill="#FF9800" fill-opacity="0.32"/>
+            <circle cx="350" cy="210" r="13" fill="#E65100"/><text x="350" y="215" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="sans-serif">7</text>
+            <rect x="295" y="300" width="110" height="105" fill="#FF5722" fill-opacity="0.35"/>
+            <circle cx="350" cy="355" r="12" fill="#BF360C"/><text x="350" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">9</text>
+            <rect x="405" y="120" width="95" height="180" fill="#CDDC39" fill-opacity="0.35"/>
+            <circle cx="452" cy="210" r="12" fill="#827717"/><text x="452" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">4</text>
+            <rect x="500" y="120" width="110" height="180" fill="#4CAF50" fill-opacity="0.32"/>
+            <circle cx="555" cy="210" r="13" fill="#2E7D32"/><text x="555" y="215" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="sans-serif">1</text>
+            <rect x="405" y="70" width="205" height="50" fill="#FF9800" fill-opacity="0.35"/>
+            <circle cx="507" cy="95" r="12" fill="#E65100"/><text x="507" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">3</text>
+            <rect x="405" y="15" width="205" height="55" fill="#F44336" fill-opacity="0.35"/>
+            <circle cx="507" cy="42" r="12" fill="#B71C1C"/><text x="507" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">6</text>
+            <rect x="405" y="300" width="205" height="50" fill="#FF9800" fill-opacity="0.35"/>
+            <circle cx="507" cy="325" r="12" fill="#E65100"/><text x="507" y="330" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">2</text>
+            <rect x="405" y="350" width="205" height="55" fill="#F44336" fill-opacity="0.35"/>
+            <circle cx="507" cy="378" r="12" fill="#B71C1C"/><text x="507" y="383" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">5</text></g>
+          <g id="kicks-layer"></g>
+          <circle id="pending-dot" cx="-999" cy="-999" r="11" fill="white" opacity="0.9" stroke="#0C1015" stroke-width="2"/>
+        </svg>
+      </div>
+      <div id="field-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:5;cursor:default;border-radius:var(--rl);"></div>
+    </div>
+
+    <div id="registrar-body" style="display:none;">
+      <span class="slabel">Tipo de patada</span>
+      <div class="ttog" style="margin-top:8px;">
+        <button class="tbtn active" onclick="setType('penal',this)">Penal</button>
+        <button class="tbtn" onclick="setType('conv',this)">Conversión</button>
+        <button class="tbtn" onclick="setType('drop',this)">Drop</button>
+      </div>
+      <div id="result-section" style="display:none">
+        <div class="pbanner">📍 <span id="pending-label">Posición marcada — ¿entró?</span></div>
+        <div class="rbtns">
+          <button class="rbtn good" onclick="registerKick(true)">✓ Entró</button>
+          <button class="rbtn miss" onclick="registerKick(false)">✕ No entró</button>
+        </div>
+      </div>
+      <div class="savebar">
+        <div class="savebar-info">Borrador: <b id="draft-count">0</b> patadas · <span id="draft-stats">—</span></div>
+        <button class="save-btn" id="save-btn" onclick="guardarPartido()" disabled>Guardar</button>
+      </div>
+      <div class="sgrid">
+        <div class="scard"><div class="slb">Eficacia global</div><div class="sval" id="s-pct">—</div><div class="ssub" id="s-frac">sin datos</div></div>
+        <div class="scard"><div class="slb">Total patadas</div><div class="sval" id="s-total">0</div><div class="ssub">registradas</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PARTIDOS ══ -->
+  <div id="tab-partidos" style="display:none">
+    <div id="partidos-list"></div>
+    <div class="empty" id="partidos-empty" style="display:none">No hay partidos registrados todavía</div>
+  </div>
+
+  <!-- ══ ESTADÍSTICAS ══ -->
+  <div id="tab-estadisticas" style="display:none">
+    <div class="global-card" style="margin-bottom:1.25rem;">
+      <div class="global-label">Eficacia global</div>
+      <div class="global-pct" id="global-pct-big">—</div>
+      <div class="global-frac" id="global-frac-big">sin patadas registradas</div>
+    </div>
+    <span class="slabel">Eficacia por zona</span>
+    <div style="border-radius:var(--rl);overflow:hidden;border:1px solid var(--border2);margin-bottom:1.25rem;margin-top:10px;">
+      <svg id="zone-stats-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%"></svg>
+    </div>
+    <span class="slabel">Por tipo de patada</span>
+    <div class="zgrid" id="type-stats" style="margin-top:10px;margin-bottom:1.25rem;"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem;">
+      <div class="chart-card" style="grid-column:1/-1;">
+        <div class="chart-title">Evolución partido a partido</div>
+        <div style="position:relative;height:140px;">
+          <canvas id="evolution-chart" style="width:100%;height:100%;"></canvas>
+          <div id="evolution-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text3);">Sin partidos registrados</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Local vs Visitante</div>
+        <div id="localvis-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Récords de la temporada</div>
+        <div id="records-chart"></div>
+      </div>
+    </div>
+    <div class="empty" id="stats-empty" style="display:none">Sin patadas registradas todavía</div>
+  </div>
+</div>
+
+<script>
+
+const UK='rk9_u', PK='rk9_p', DK='rk9_d', PRK='rk9_pr';
+
+const FIELD_SVG_MINI = `<rect width="700" height="420" fill="#2e7d32"/>
+        <rect x="25" y="15" width="650" height="390" fill="none" stroke="white" stroke-width="2.5"/>
+        <line x1="90" y1="15" x2="90" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="610" y1="15" x2="610" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="118" y1="15" x2="118" y2="405" stroke="white" stroke-width="1.6" stroke-dasharray="10,7"/>
+        <line x1="582" y1="15" x2="582" y2="405" stroke="white" stroke-width="1.6" stroke-dasharray="10,7"/>
+        <line x1="200" y1="15" x2="200" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="500" y1="15" x2="500" y2="405" stroke="white" stroke-width="2"/>
+        <line x1="350" y1="15" x2="350" y2="405" stroke="white" stroke-width="2.5"/>
+        <line x1="295" y1="15" x2="295" y2="405" stroke="white" stroke-width="1.8" stroke-dasharray="10,7"/>
+        <line x1="405" y1="15" x2="405" y2="405" stroke="white" stroke-width="1.8" stroke-dasharray="10,7"/>
+        <line x1="111" y1="70" x2="125" y2="70" stroke="white" stroke-width="1.8"/><line x1="118" y1="63" x2="118" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="70" x2="207" y2="70" stroke="white" stroke-width="1.8"/><line x1="200" y1="63" x2="200" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="70" x2="302" y2="70" stroke="white" stroke-width="1.8"/><line x1="295" y1="63" x2="295" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="70" x2="357" y2="70" stroke="white" stroke-width="1.8"/><line x1="350" y1="63" x2="350" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="70" x2="412" y2="70" stroke="white" stroke-width="1.8"/><line x1="405" y1="63" x2="405" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="70" x2="507" y2="70" stroke="white" stroke-width="1.8"/><line x1="500" y1="63" x2="500" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="70" x2="589" y2="70" stroke="white" stroke-width="1.8"/><line x1="582" y1="63" x2="582" y2="77" stroke="white" stroke-width="1.8"/>
+        <line x1="111" y1="120" x2="125" y2="120" stroke="white" stroke-width="1.8"/><line x1="118" y1="113" x2="118" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="120" x2="207" y2="120" stroke="white" stroke-width="1.8"/><line x1="200" y1="113" x2="200" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="120" x2="302" y2="120" stroke="white" stroke-width="1.8"/><line x1="295" y1="113" x2="295" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="120" x2="357" y2="120" stroke="white" stroke-width="1.8"/><line x1="350" y1="113" x2="350" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="120" x2="412" y2="120" stroke="white" stroke-width="1.8"/><line x1="405" y1="113" x2="405" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="120" x2="507" y2="120" stroke="white" stroke-width="1.8"/><line x1="500" y1="113" x2="500" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="120" x2="589" y2="120" stroke="white" stroke-width="1.8"/><line x1="582" y1="113" x2="582" y2="127" stroke="white" stroke-width="1.8"/>
+        <line x1="111" y1="300" x2="125" y2="300" stroke="white" stroke-width="1.8"/><line x1="118" y1="293" x2="118" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="300" x2="207" y2="300" stroke="white" stroke-width="1.8"/><line x1="200" y1="293" x2="200" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="300" x2="302" y2="300" stroke="white" stroke-width="1.8"/><line x1="295" y1="293" x2="295" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="300" x2="357" y2="300" stroke="white" stroke-width="1.8"/><line x1="350" y1="293" x2="350" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="300" x2="412" y2="300" stroke="white" stroke-width="1.8"/><line x1="405" y1="293" x2="405" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="300" x2="507" y2="300" stroke="white" stroke-width="1.8"/><line x1="500" y1="293" x2="500" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="300" x2="589" y2="300" stroke="white" stroke-width="1.8"/><line x1="582" y1="293" x2="582" y2="307" stroke="white" stroke-width="1.8"/>
+        <line x1="111" y1="350" x2="125" y2="350" stroke="white" stroke-width="1.8"/><line x1="118" y1="343" x2="118" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="193" y1="350" x2="207" y2="350" stroke="white" stroke-width="1.8"/><line x1="200" y1="343" x2="200" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="288" y1="350" x2="302" y2="350" stroke="white" stroke-width="1.8"/><line x1="295" y1="343" x2="295" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="343" y1="350" x2="357" y2="350" stroke="white" stroke-width="1.8"/><line x1="350" y1="343" x2="350" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="398" y1="350" x2="412" y2="350" stroke="white" stroke-width="1.8"/><line x1="405" y1="343" x2="405" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="493" y1="350" x2="507" y2="350" stroke="white" stroke-width="1.8"/><line x1="500" y1="343" x2="500" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="575" y1="350" x2="589" y2="350" stroke="white" stroke-width="1.8"/><line x1="582" y1="343" x2="582" y2="357" stroke="white" stroke-width="1.8"/>
+        <line x1="90" y1="180" x2="38" y2="180" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="90" y1="240" x2="38" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="64" y1="180" x2="64" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="610" y1="180" x2="662" y2="180" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="610" y1="240" x2="662" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="636" y1="180" x2="636" y2="240" stroke="white" stroke-width="3.5" stroke-linecap="round"/>`;
+
+let D={
+  users: JSON.parse(localStorage.getItem(UK)||'["Yo"]'),
+  cur: 'Yo',
+  partidos: JSON.parse(localStorage.getItem(PK)||'{}'),
+  draft: JSON.parse(localStorage.getItem(DK)||'{}'),
+  type: 'penal',
+  selId: null,
+  px: null, py: null,
+  tab: 'registrar',
+  zonesVisible: true
+};
+
+function save(){
+  localStorage.setItem(UK,JSON.stringify(D.users));
+  localStorage.setItem(PK,JSON.stringify(D.partidos));
+  localStorage.setItem(DK,JSON.stringify(D.draft));
+}
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,5); }
+function uP(){ return D.partidos[D.cur]||{}; }
+function uDraft(){ return D.draft[D.cur]||{kicks:[],partidoId:null}; }
+function calcS(kicks){
+  if(!kicks||!kicks.length) return null;
+  const m=kicks.filter(k=>k.made).length;
+  return {pct:Math.round(m/kicks.length*100),made:m,total:kicks.length};
+}
+function nonDrop(kicks){ return (kicks||[]).filter(k=>k.type!=='drop'); }
+function allKicks(){ return Object.values(uP()).flatMap(p=>p.kicks||[]); }
+function pctCol(p){ return p>=80?'pct-g':p>=50?'pct-m':'pct-b'; }
+
+function getZone(x,y){
+  if(x>=295&&x<=405){
+    if(y>=120&&y<=300) return '7';
+    if(y<120) return '8';
+    if(y>300) return '9';
+  }
+  if(x>=90&&x<295){
+    if(y>=120&&y<=300){ return x<200?'1':'4'; }
+    if(y>=70&&y<120) return '2';
+    if(y>300&&y<=350) return '3';
+    if(y<70) return '5';
+    if(y>350) return '6';
+  }
+  if(x>405&&x<=610){
+    const lx=700-x;
+    if(y>=120&&y<=300){ return lx<200?'1':'4'; }
+    if(y>=70&&y<120) return '3';  // top-right = zona 3 (cruzado)
+    if(y>300&&y<=350) return '2'; // bottom-right = zona 2 (cruzado)
+    if(y<70) return '6';
+    if(y>350) return '5';
+  }
+  return '—';
+}
+
+// ── ZONES TOGGLE ──
+function toggleZones(){
+  D.zonesVisible=!D.zonesVisible; applyZones();
+  const pr=JSON.parse(localStorage.getItem(PRK)||'{}');
+  pr[D.cur]=pr[D.cur]||{}; pr[D.cur].z=D.zonesVisible;
+  localStorage.setItem(PRK,JSON.stringify(pr));
+}
+function applyZones(){
+  const l=document.getElementById('zones-layer'), b=document.getElementById('zone-toggle-btn');
+  if(l) l.style.display=D.zonesVisible?'':'none';
+  if(b) b.textContent=D.zonesVisible?'Ocultar zonas':'Mostrar zonas';
+}
+function loadZonePref(){
+  const pr=JSON.parse(localStorage.getItem(PRK)||'{}');
+  D.zonesVisible=(pr[D.cur]&&pr[D.cur].z!==undefined)?pr[D.cur].z:true;
+  applyZones();
+}
+
+// ── FIELD OVERLAY ──
+function activateField(){
+  const ov=document.getElementById('field-overlay');
+  const lb=document.getElementById('field-label');
+  if(ov) ov.style.display='none';
+  if(lb){ lb.textContent='Tocá donde pateaste'; lb.style.color='var(--text2)'; }
+}
+function deactivateField(){
+  const ov=document.getElementById('field-overlay');
+  const lb=document.getElementById('field-label');
+  if(ov) ov.style.display='';
+  if(lb){ lb.textContent='Vista previa'; lb.style.color='var(--text3)'; }
+  document.getElementById('kicks-layer').innerHTML='';
+}
+
+// ── USER ──
+function switchUser(n){
+  D.cur=n; D.selId=null; cancelP();
+  loadZonePref(); render();
+}
+function addUser(){
+  const inp=document.getElementById('new-user-input'), name=inp.value.trim();
+  if(!name||D.users.includes(name)) return;
+  D.users.push(name); D.partidos[name]={}; D.draft[name]={kicks:[],partidoId:null};
+  save(); inp.value=''; render();
+}
+
+// ── TAB ──
+function switchTab(t){
+  D.tab=t;
+  ['registrar','partidos','estadisticas'].forEach(x=>
+    document.getElementById('tab-'+x).style.display=x===t?'':'none');
+  document.querySelectorAll('.tab').forEach((b,i)=>
+    b.classList.toggle('active',['registrar','partidos','estadisticas'][i]===t));
+  if(t!=='registrar') cancelP();
+  render();
+  if(t==='estadisticas') setTimeout(renderCharts,80);
+}
+
+// ── NUEVO PARTIDO ──
+function showNP(){
+  document.getElementById('crear-btn').style.display='none';
+  document.getElementById('np-form').style.display='';
+  document.getElementById('np-fecha').valueAsDate=new Date();
+
+}
+function hideNP(){
+  document.getElementById('np-form').style.display='none';
+  document.getElementById('crear-btn').style.display='';
+}
+function crearPartido(){
+  const rival=document.getElementById('np-rival').value||'Sin rival';
+  const fecha=document.getElementById('np-fecha').value||new Date().toISOString().slice(0,10);
+  const eq=document.getElementById('np-equipo').value;
+  const equipo=eq;
+  const localidad=document.getElementById('np-localidad').value;
+  const fechaTorneo=document.getElementById('np-fecha-torneo').value;
+  const id=uid();
+  if(!D.partidos[D.cur]) D.partidos[D.cur]={};
+  D.partidos[D.cur][id]={id,rival,fecha,equipo,localidad,fechaTorneo,created:Date.now(),kicks:[]};
+  D.selId=id;
+  D.draft[D.cur]={kicks:[],partidoId:id};
+  save();
+  document.getElementById('np-form').style.display='none';
+  document.getElementById('crear-btn').style.display='none';
+  document.getElementById('registrar-body').style.display='';
+  activateField();
+  renderField(); updateSavebar(); updateGlobalStats();
+}
+
+// ── CLICKS EN CAMPO ──
+function handleClick(e){
+  if(D.tab!=='registrar'||!D.selId) return;
+  const svg=document.getElementById('field-svg');
+  const r=svg.getBoundingClientRect(), vb=svg.viewBox.baseVal;
+  D.px=(e.clientX-r.left)*(vb.width/r.width);
+  D.py=(e.clientY-r.top)*(vb.height/r.height);
+  document.getElementById('pending-dot').setAttribute('cx',D.px);
+  document.getElementById('pending-dot').setAttribute('cy',D.py);
+  const z=getZone(D.px,D.py);
+  document.getElementById('pending-label').textContent=(z!=='—'?'Zona '+z:'')+' — ¿entró?';
+  document.getElementById('result-section').style.display='';
+}
+function cancelP(){
+  D.px=D.py=null;
+  const d=document.getElementById('pending-dot');
+  if(d){d.setAttribute('cx',-999);d.setAttribute('cy',-999);}
+  const r=document.getElementById('result-section'); if(r) r.style.display='none';
+}
+function registerKick(made){
+  if(D.px===null||!D.selId) return;
+  const draft=uDraft();
+  draft.kicks.push({x:Math.round(D.px),y:Math.round(D.py),type:D.type,made,zone:getZone(D.px,D.py),date:new Date().toISOString()});
+  D.draft[D.cur]=draft;
+  save(); cancelP(); renderField(); updateSavebar(); updateGlobalStats();
+}
+function setType(t,btn){
+  D.type=t;
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── GUARDAR ──
+function guardarPartido(){
+  const draft=uDraft();
+  if(!draft.kicks.length||!draft.partidoId) return;
+  const p=D.partidos[D.cur][draft.partidoId];
+  if(!p) return;
+  p.kicks=[...p.kicks,...draft.kicks];
+  D.draft[D.cur]={kicks:[],partidoId:null};
+  D.selId=null; save();
+  const t=document.getElementById('success-toast');
+  t.style.display='block'; setTimeout(()=>t.style.display='none',2500);
+  cancelP();
+  document.getElementById('registrar-body').style.display='none';
+  document.getElementById('crear-btn').style.display='';
+  deactivateField();
+  renderPartidos(); updateGlobalStats();
+}
+
+// ── AGREGAR MÁS A PARTIDO EXISTENTE ──
+function agregarMas(pid){
+  D.selId=pid; D.draft[D.cur]={kicks:[],partidoId:pid}; save();
+  switchTab('registrar');
+  document.getElementById('crear-btn').style.display='none';
+  document.getElementById('np-form').style.display='none';
+  document.getElementById('registrar-body').style.display='';
+  activateField(); renderField(); updateSavebar(); updateGlobalStats();
+}
+
+// ── ELIMINAR ──
+let pendingDelete=null;
+function handleDelete(btn){
+  const pid=btn.getAttribute('data-pid');
+  if(pendingDelete===pid){
+    delete D.partidos[D.cur][pid];
+    pendingDelete=null; save(); renderPartidos(); updateGlobalStats();
+  } else {
+    if(pendingDelete){
+      const prev=document.querySelector('[data-pid="'+pendingDelete+'"]');
+      if(prev) resetDelBtn(prev);
+    }
+    pendingDelete=pid;
+    btn.textContent='¿Eliminar?';
+    btn.style.cssText='background:#FAECE7;border:0.5px solid #D85A30;cursor:pointer;font-size:12px;padding:4px 10px;color:#993C1D;border-radius:8px;margin-left:4px;font-weight:600;';
+    setTimeout(()=>{ if(pendingDelete===pid){ pendingDelete=null; resetDelBtn(btn); }}, 3000);
+  }
+}
+function resetDelBtn(btn){
+  btn.textContent='🗑';
+  btn.style.cssText='background:none;border:none;cursor:pointer;font-size:16px;padding:4px 6px;color:var(--text3);border-radius:8px;margin-left:4px;';
+}
+function deleteKickFromPartido(pid,idx){
+  const p=D.partidos[D.cur][pid]; if(!p) return;
+  p.kicks.splice(idx,1); save(); renderPartidos(); updateGlobalStats();
+}
+
+// ── RENDER ──
+function renderField(){
+  const kicks=uDraft().kicks||[];
+  document.getElementById('kicks-layer').innerHTML=kicks.map((k,i)=>{
+    const c=k.made?'#5DCAA5':'#F0997B', s=k.made?'#0F6E56':'#993C1D';
+    return `<g><circle cx="${k.x}" cy="${k.y}" r="12" fill="${c}" stroke="${s}" stroke-width="1.5" opacity="0.95"/>
+    <text x="${k.x}" y="${k.y+4}" text-anchor="middle" fill="${k.made?'#085041':'#712B13'}" font-size="10" font-weight="700" font-family="sans-serif">${i+1}</text></g>`;
+  }).join('');
+}
+function updateSavebar(){
+  const kicks=uDraft().kicks||[];
+  const nd=nonDrop(kicks); const s=calcS(nd);
+  document.getElementById('draft-count').textContent=nd.length;
+  document.getElementById('draft-stats').textContent=s?s.pct+'% ('+s.made+'/'+s.total+')':'—';
+  const btn=document.getElementById('save-btn');
+  btn.disabled=!kicks.length;
+  btn.textContent=kicks.length?'Guardar partido ('+kicks.length+')':'Guardar partido';
+}
+function updateGlobalStats(){
+  const all=allKicks(); const nd=nonDrop(all); const s=calcS(nd);
+  document.getElementById('s-pct').textContent=s?s.pct+'%':'—';
+  document.getElementById('s-frac').textContent=s?s.made+' de '+s.total:'sin datos';
+  document.getElementById('s-total').textContent=nd.length;
+}
+function renderUserSelect(){
+  document.getElementById('user-select').innerHTML=
+    D.users.map(u=>`<option value="${u}" ${u===D.cur?'selected':''}>${u}</option>`).join('');
+}
+function kickTrajectory(k){
+  // Siempre hacia los palos izquierdos
+  const postX = 64;
+  const postTopY = 180, postBotY = 240, postCenterY = 210;
+
+  let endX, endY;
+  if(k.made){
+    endX = postX;
+    endY = postCenterY;
+  } else {
+    // Pasa por afuera: arriba o abajo según posición del pateador
+    const wide = k.y < postCenterY ? postTopY - 45 : postBotY + 45;
+    endX = postX - 20;
+    endY = wide;
+  }
+
+  // Punto de control para la curva (altura proporcional a la distancia)
+  const midX = (k.x + endX) / 2;
+  const midY = (k.y + endY) / 2;
+  const dist = Math.abs(endX - k.x);
+  const cpY = midY - dist * 0.22; // arco parabólico
+
+  const color = k.made ? '#2ECC97' : '#E05540';
+  const dash = k.made ? '' : 'stroke-dasharray="7,4"';
+  const width = k.made ? 2.2 : 2;
+
+  return `<path d="M${k.x},${k.y} Q${midX},${cpY} ${endX},${endY}" fill="none" stroke="${color}" stroke-width="${width}" ${dash} stroke-linecap="round" opacity="0.8"/>`;
+}
+
+function renderPartidos(){
+  const sorted=Object.values(uP()).sort((a,b)=>b.created-a.created);
+  const c=document.getElementById('partidos-list');
+  document.getElementById('partidos-empty').style.display=sorted.length?'none':'';
+  if(!sorted.length){c.innerHTML='';return;}
+  const tl={penal:'Penal',conv:'Conv',drop:'Drop'}, tc={penal:'tp',conv:'tc',drop:'td'};
+  c.innerHTML=sorted.map(p=>{
+    const kicks=p.kicks||[];
+    const nd=nonDrop(kicks); const s=calcS(nd);
+    const byType=['penal','conv'].map(t=>{
+      const ts=calcS(kicks.filter(k=>k.type===t));
+      return ts?`${tl[t]}: ${ts.pct}% (${ts.made}/${ts.total})`:'';
+    }).filter(Boolean).join(' · ');
+    const dropS=calcS(kicks.filter(k=>k.type==='drop'));
+    const trajectories=kicks.map(k=>kickTrajectory(k)).join('');
+    const dots=kicks.map((k,i)=>{
+      const col=k.made?'#5DCAA5':'#F0997B', st=k.made?'#0F6E56':'#993C1D';
+      return `<g><circle cx="${k.x}" cy="${k.y}" r="12" fill="${col}" stroke="${st}" stroke-width="1.5" opacity="0.95"/>
+      <text x="${k.x}" y="${k.y+4}" text-anchor="middle" fill="${k.made?'#085041':'#712B13'}" font-size="10" font-weight="700" font-family="sans-serif">${i+1}</text></g>`;
+    }).join('');
+    const kicksList=kicks.map((k,i)=>`
+      <div class="krow">
+        <div class="knum ${k.made?'kg':'kb'}">${i+1}</div>
+        <span class="ktype ${tc[k.type]}">${tl[k.type]}</span>
+        <div class="kinfo">Zona ${k.zone}</div>
+        <span class="kres ${k.made?'krg':'krb'}">${k.made?'Entró':'No entró'}</span>
+        <button class="kdel" onclick="deleteKickFromPartido('${p.id}',${i})">🗑</button>
+      </div>`).join('');
+    return `<div class="pc">
+      <div class="pc-head" onclick="togglePC('${p.id}')">
+        <div style="flex:1"><div class="pc-title">vs ${p.rival}</div><div class="pc-sub">${p.fechaTorneo?"Fecha #"+p.fechaTorneo+" · ":""}${p.localidad==="Local"?'<span class="badge-local">Local</span>':p.localidad==="Visitante"?'<span class="badge-visit">Visitante</span>':""} · ${p.fecha} <span class="badge-eq">${p.equipo}</span></div></div>
+        <div class="pc-pct ${s?pctCol(s.pct):''}">${s?s.pct+'%':'—'}</div>
+        <button data-pid="${p.id}" onclick="event.stopPropagation();handleDelete(this)" style="background:none;border:none;cursor:pointer;font-size:16px;padding:4px 6px;color:var(--text3);border-radius:8px;margin-left:4px;">🗑</button>
+        <span class="pc-arr" id="arr-${p.id}">▾</span>
+      </div>
+      <div class="pc-body" id="body-${p.id}">
+        <div class="pc-inner">
+          ${kicks.length?`<div class="mini-field"><svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">${FIELD_SVG_MINI}<g>${trajectories}</g><g>${dots}</g></svg></div>`:''}
+          ${s?`<div class="pc-stats">${s.made}/${s.total} pat.${byType?' · '+byType:''}${dropS?' · Drop: '+dropS.made+'/'+dropS.total:''}</div>`:''}
+          ${kicksList?`<div>${kicksList}</div>`:'<div class="empty" style="padding:1rem 0">Sin patadas guardadas</div>'}
+          <div class="pc-actions"><button class="pbtn" onclick="agregarMas('${p.id}')">+ Agregar patadas</button></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function togglePC(id){
+  const b=document.getElementById('body-'+id), a=document.getElementById('arr-'+id);
+  const open=b.classList.contains('open');
+  b.classList.toggle('open',!open); a.classList.toggle('open',!open);
+}
+function renderTypeStats(){
+  const all=allKicks(), nd=nonDrop(all), s=calcS(nd);
+  const big=document.getElementById('global-pct-big'), frac=document.getElementById('global-frac-big');
+  if(big){ big.textContent=s?s.pct+'%':'—'; big.style.color=s?(s.pct>=80?'var(--green)':s.pct>=50?'var(--amber)':'var(--red)'):'var(--text)'; }
+  if(frac) frac.textContent=s?s.made+' de '+s.total+' patadas':'sin patadas registradas';
+  document.getElementById('type-stats').innerHTML=
+    [{k:'penal',l:'Penal'},{k:'conv',l:'Conversión'}].map(t=>{
+      const ts=calcS(all.filter(k=>k.type===t.k));
+      return `<div class="zcard"><div class="zname">${t.l}</div><div class="zpct">${ts?ts.pct+'%':'—'}</div><div class="zcnt">${ts?ts.made+'/'+ts.total:'sin datos'}</div></div>`;
+    }).join('')+
+    `<div class="zcard" style="border:0.5px solid var(--border2)"><div class="zname" style="font-weight:600">Drop ✦</div><div class="zpct">${calcS(all.filter(k=>k.type==='drop'))?calcS(all.filter(k=>k.type==='drop')).pct+'%':'—'}</div><div class="zcnt">${calcS(all.filter(k=>k.type==='drop'))?calcS(all.filter(k=>k.type==='drop')).made+'/'+calcS(all.filter(k=>k.type==='drop')).total:'sin datos'}</div></div>`;
+  document.getElementById('stats-empty').style.display=all.length?'none':'';
+}
+function renderZoneStats(){
+  const all=nonDrop(allKicks());
+  const svg=document.getElementById('zone-stats-svg');
+  if(!svg) return;
+
+  // Zone definitions: [zone_num, x, y, w, h, fill, label_cx, label_cy]
+  // Zonas con stats: izquierda completa + mitad izquierda del centro
+  const zoneDefs=[
+    {z:'5', x:90,  y:15,  w:205, h:55,  fill:'#F44336', cx:192, cy:42},
+    {z:'2', x:90,  y:70,  w:205, h:50,  fill:'#FF9800', cx:192, cy:95},
+    {z:'1', x:90,  y:120, w:110, h:180, fill:'#4CAF50', cx:145, cy:210},
+    {z:'4', x:200, y:120, w:95,  h:180, fill:'#CDDC39', cx:247, cy:210},
+    {z:'3', x:90,  y:300, w:205, h:50,  fill:'#FF9800', cx:192, cy:325},
+    {z:'6', x:90,  y:350, w:205, h:55,  fill:'#F44336', cx:192, cy:378},
+    {z:'8', x:295, y:15,  w:55,  h:105, fill:'#FF5722', cx:322, cy:65},
+    {z:'7', x:295, y:120, w:55,  h:180, fill:'#FF9800', cx:322, cy:210},
+    {z:'9', x:295, y:300, w:55,  h:105, fill:'#FF5722', cx:322, cy:355},
+  ];
+
+  // Compute stats per zone
+  const zStats={};
+  ['1','2','3','4','5','6','7','8','9'].forEach(z=>{
+    zStats[z]=calcS(all.filter(k=>k.zone===z));
+  });
+
+  const fieldLines=FIELD_SVG_MINI;
+
+  let zoneRects=zoneDefs.map(zd=>{
+    const s=zStats[zd.z];
+    const pct=s?s.pct+'%':'—';
+    const frac=s?s.made+'/'+s.total:'';
+    const bgColor=s?(s.pct>=80?'rgba(15,110,86,0.82)':s.pct>=50?'rgba(186,117,23,0.82)':'rgba(153,60,29,0.82)'):'rgba(0,0,0,0.35)';
+    const isLarge=zd.h>=150;
+    const rectH=isLarge?54:42;
+    const rectW=isLarge?72:58;
+    return `<g>
+      <rect x="${zd.x}" y="${zd.y}" width="${zd.w}" height="${zd.h}" fill="${zd.fill}" fill-opacity="0.3"/>
+      <rect x="${zd.cx-rectW/2}" y="${zd.cy-rectH/2}" width="${rectW}" height="${rectH}" rx="6" fill="${bgColor}"/>
+      <text x="${zd.cx}" y="${zd.cy+(isLarge?-6:-4)}" text-anchor="middle" font-size="${isLarge?16:13}" font-weight="700" fill="white" font-family="sans-serif">${pct}</text>
+      ${frac?`<text x="${zd.cx}" y="${zd.cy+(isLarge?12:9)}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.85)" font-family="sans-serif">${frac}</text>`:''}
+    </g>`;
+  }).join('');
+
+  svg.innerHTML=fieldLines+zoneRects;
+}
+function renderUsersList(){
+  document.getElementById('users-list').innerHTML=
+    D.users.map(u=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border:0.5px solid var(--border3);border-radius:var(--r);margin-bottom:6px;background:var(--bg);">
+      <span style="font-size:14px;font-weight:${u===D.cur?'500':'400'}">${u}${u===D.cur?' (vos)':''}</span>
+      ${D.users.length>1&&u!==D.cur?`<button class="pbtn" style="font-size:12px;padding:4px 10px" onclick="switchUser('${u}')">Ver perfil</button>`:''}
+    </div>`).join('');
+}
+function renderCharts(){
+  const ps = Object.values(uP()).sort((a,b)=>a.created-b.created);
+  const nonDropP = p => nonDrop(p.kicks||[]);
+
+  // ── EVOLUCIÓN PARTIDO A PARTIDO ──
+  const canvas = document.getElementById('evolution-chart');
+  const emptyEl = document.getElementById('evolution-empty');
+  const validPs = ps.filter(p=>nonDropP(p).length>0);
+
+  if(!canvas) return;
+  if(validPs.length===0){
+    canvas.style.display='none';
+    if(emptyEl) emptyEl.style.display='flex';
+  } else {
+    canvas.style.display='block';
+    if(emptyEl) emptyEl.style.display='none';
+
+    const dpr = window.devicePixelRatio||1;
+    const parent = canvas.parentElement;
+    const W = parent.clientWidth||300, H = 140;
+    canvas.width = W*dpr; canvas.height = H*dpr;
+    canvas.style.width = W+'px'; canvas.style.height = H+'px';
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+    ctx.clearRect(0,0,W,H);
+
+    const isDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+    const textColor = isDark?'#9e9b94':'#666660';
+    const gridColor = isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)';
+    const lineColor = '#2ECC97';
+    const dotColor = '#0F6E56';
+
+    const padL=32, padR=16, padT=12, padB=28;
+    const chartW=W-padL-padR, chartH=H-padT-padB;
+    const n=validPs.length;
+    const pcts=validPs.map(p=>{ const s=calcS(nonDropP(p)); return s?s.pct:0; });
+
+    // Grid lines at 0, 50, 100
+    [0,50,100].forEach(v=>{
+      const y=padT+chartH*(1-v/100);
+      ctx.beginPath(); ctx.strokeStyle=gridColor; ctx.lineWidth=1;
+      ctx.moveTo(padL,y); ctx.lineTo(padL+chartW,y); ctx.stroke();
+      ctx.fillStyle=textColor; ctx.font='10px sans-serif'; ctx.textAlign='right';
+      ctx.fillText(v+'%',padL-5,y+3);
+    });
+
+    // Line
+    if(n===1){
+      const x=padL+chartW/2, y=padT+chartH*(1-pcts[0]/100);
+      ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2);
+      ctx.fillStyle=dotColor; ctx.fill();
+    } else {
+      // Draw gradient fill
+      const grad=ctx.createLinearGradient(0,padT,0,padT+chartH);
+      grad.addColorStop(0,'rgba(46,204,151,0.25)');
+      grad.addColorStop(1,'rgba(46,204,151,0)');
+      ctx.beginPath();
+      validPs.forEach((p,i)=>{
+        const x=padL+(i/(n-1))*chartW;
+        const y=padT+chartH*(1-pcts[i]/100);
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      });
+      ctx.lineTo(padL+chartW,padT+chartH);
+      ctx.lineTo(padL,padT+chartH);
+      ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+
+      // Line
+      ctx.beginPath(); ctx.strokeStyle=lineColor; ctx.lineWidth=2.5; ctx.lineJoin='round';
+      validPs.forEach((p,i)=>{
+        const x=padL+(i/(n-1))*chartW;
+        const y=padT+chartH*(1-pcts[i]/100);
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      });
+      ctx.stroke();
+
+      // Dots + labels
+      validPs.forEach((p,i)=>{
+        const x=padL+(i/(n-1))*chartW;
+        const y=padT+chartH*(1-pcts[i]/100);
+        ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+        ctx.fillStyle=dotColor; ctx.fill();
+        ctx.strokeStyle='var(--bg)'; ctx.lineWidth=1.5; ctx.stroke();
+        // Partido label below
+        ctx.fillStyle=textColor; ctx.font='9px sans-serif'; ctx.textAlign='center';
+        const label='vs '+p.rival.substring(0,8);
+        ctx.fillText(label,x,H-4);
+      });
+    }
+  }
+
+  // ── LOCAL VS VISITANTE ──
+  const lvEl=document.getElementById('localvis-chart');
+  if(lvEl){
+    const localKicks=nonDrop(ps.filter(p=>p.localidad==='Local').flatMap(p=>p.kicks||[]));
+    const visitKicks=nonDrop(ps.filter(p=>p.localidad==='Visitante').flatMap(p=>p.kicks||[]));
+    const ls=calcS(localKicks), vs=calcS(visitKicks);
+
+    if(!ls&&!vs){
+      lvEl.innerHTML='<div style="font-size:13px;color:var(--text3);text-align:center;padding:1rem 0">Sin datos suficientes</div>';
+    } else {
+      const bar=(label,s,color)=>{
+        if(!s) return `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--text2)">${label}</span><span style="color:var(--text3)">sin datos</span></div></div>`;
+        const barColor=s.pct>=80?'var(--green)':s.pct>=50?'var(--amber)':'var(--red)';
+        return `<div style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+            <span style="color:var(--text2)">${label}</span>
+            <span style="font-weight:600;color:${barColor}">${s.pct}% <span style="font-weight:400;color:var(--text3)">(${s.made}/${s.total})</span></span>
+          </div>
+          <div style="background:var(--bg3);border-radius:20px;height:8px;overflow:hidden">
+            <div style="width:${s.pct}%;height:100%;background:${barColor};border-radius:20px;transition:width 0.4s"></div>
+          </div>
+        </div>`;
+      };
+      lvEl.innerHTML=bar('🏠 Local',ls)+bar('✈️ Visitante',vs);
+
+      // Difference note
+      if(ls&&vs){
+        const diff=ls.pct-vs.pct;
+        const sign=diff>0?'+':'';
+        const note=diff===0?'Igual eficacia local y visitante':
+          diff>0?`${sign}${diff}% más efectivo de local`:
+          `${Math.abs(diff)}% más efectivo de visitante`;
+        lvEl.innerHTML+=`<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:4px">${note}</div>`;
+      }
+    }
+  }
+
+  // ── RÉCORDS ──
+  const recEl=document.getElementById('records-chart');
+  if(recEl&&validPs.length>0){
+    const pctMap=validPs.map(p=>({rival:p.rival,pct:calcS(nonDropP(p))?.pct||0,s:calcS(nonDropP(p))}));
+    const best=pctMap.reduce((a,b)=>a.pct>=b.pct?a:b);
+    const worst=pctMap.reduce((a,b)=>a.pct<=b.pct?a:b);
+    const totalNd=nonDrop(ps.flatMap(p=>p.kicks||[]));
+    const streak=()=>{let s=0,max=0;totalNd.forEach(k=>{s=k.made?s+1:0;max=Math.max(max,s);});return max;};
+    recEl.innerHTML=`
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+          <span style="color:var(--text2)">🏆 Mejor partido</span>
+          <span style="font-weight:600;color:#2ECC97">vs ${best.rival} ${best.pct}%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+          <span style="color:var(--text2)">📉 Peor partido</span>
+          <span style="font-weight:600;color:#E05540">vs ${worst.rival} ${worst.pct}%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+          <span style="color:var(--text2)">🔥 Mejor racha</span>
+          <span style="font-weight:600;color:var(--text)">${streak()} consecutivas</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+          <span style="color:var(--text2)">📊 Partidos jugados</span>
+          <span style="font-weight:600;color:var(--text)">${validPs.length}</span>
+        </div>
+      </div>`;
+  } else if(recEl){
+    recEl.innerHTML='<div style="font-size:13px;color:var(--text3);text-align:center;padding:1rem 0">Sin datos suficientes</div>';
+  }
+}
+
+function render(){
+  renderUserSelect(); renderPartidos(); renderTypeStats(); renderZoneStats(); updateGlobalStats();
+  setTimeout(renderCharts, 50);
+}
+
+document.getElementById('field-svg').addEventListener('click', handleClick);
+if(!D.partidos[D.cur]) D.partidos[D.cur]={};
+if(!D.draft[D.cur]) D.draft[D.cur]={kicks:[],partidoId:null};
+D.selId=null; D.draft[D.cur]={kicks:[],partidoId:null}; save();
+loadZonePref(); render();
+
+function enterApp(){
+  const splash=document.getElementById('splash');
+  splash.classList.add('hiding');
+  setTimeout(()=>splash.remove(), 500);
+}
+
+// Register Service Worker for offline support
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+
+</script>
+</body>
+</html>
